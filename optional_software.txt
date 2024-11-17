@@ -1,0 +1,4 @@
+https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community-8.0.40-winx64.msi
+
+Azure CLI
+https://aka.ms/installazurecliwindowsx64
