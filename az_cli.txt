@@ -1,0 +1,23 @@
+1. Create a resource group:
+az group create --name myResourceGroup --location eastus
+
+2. Create a virtual network:
+az network vnet create --resource-group myResourceGroup --name myVnet --address-prefix 10.0.0.0/16 --subnet-name mySubnet --subnet-prefix 10.0.0.0/24
+
+3. Create a network security group:
+az network nsg create --resource-group myResourceGroup --name myNSG
+
+4. Create a network security rule:
+az network nsg rule create --resource-group myResourceGroup --nsg-name myNSG --name myNSGRule --protocol tcp --direction inbound --source-address-prefix '*' --source-port-range '*' --destination-address-prefix '*' --destination-port-range 22 --access allow --priority 1000
+
+5. Associate the NSG to the subnet:
+az network vnet subnet update --vnet-name myVnet --name mySubnet --resource-group myResourceGroup --network-security-group myNSG
+
+6. Create a public IP address:
+az network public-ip create --resource-group myResourceGroup --name myPublicIP
+
+7. Create a network interface:
+az network nic create --resource-group myResourceGroup --name myNic --vnet-name myVnet --subnet mySubnet --network-security-group myNSG --public-ip-address myPublicIP
+
+8. Finally, create the virtual machine:
+az vm create --resource-group myResourceGroup --name myVM --nics myNic --image UbuntuLTS --admin-username azureuser --generate-ssh-keys
